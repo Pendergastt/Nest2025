@@ -4,7 +4,6 @@ import {
   Get,
   Param,
   Post,
-  
 } from '@nestjs/common';
 
 import { BuscadorService } from 'src/service/buscador.service';
@@ -18,6 +17,12 @@ export class BuscadorController {
   buscar(@Param("tematica")tematica:string):Item[]{
     return this.buscadorService.buscar(tematica);
   }
+
+  //@Get("buscar/:tematica")
+  //buscar(@Param("tematica")tematica:string):Item[]{
+  //  return this.buscadorService.buscar(tematica);
+
+  //}
 
   @Post("alta")
   altaItem(@Body()item:Item):void{
