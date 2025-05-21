@@ -4,5 +4,6 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {},
+	"material-icon-theme.activeIconPack": "nest"
 }

@@ -34,9 +34,10 @@ export class AppController {
 
   }
   @Post("alta")
-  postAltaFicha(@Body()ficha:Ficha):void{
+  postAltaFicha(@Body()ficha:Ficha):Ficha{
 
     console.log(ficha.nombre+"-"+ficha.edad+"-"+ficha.email)
+    return ficha
   }
 
 
