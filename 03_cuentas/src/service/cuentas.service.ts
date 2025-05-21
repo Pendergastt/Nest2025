@@ -82,10 +82,10 @@ cuentas: Cuenta[]=[
     new Cuenta ("ES1600890123456789012345", 75.10, "Elena Navarro", "Cuenta Ahorro" ),
   ]
 
-alta(cuenta:Cuenta):void{
-    if(this.cuentas.some(c=>c.numero_cuenta==cuenta.numero_cuenta)) console.log("Esa cuenta está duplicada")
+alta(cuenta:Cuenta){
+
+    if(this.cuentas.some(c=>c.numero_cuenta==cuenta.numero_cuenta)) return false;
     else {this.cuentas.push(cuenta);
-      console.log("cuenta añadida");
     }
 
 
@@ -104,6 +104,7 @@ buscarSaldo(saldoCuenta:number):Cuenta[]{
 
 eliminarCuenta(numeroCuenta:string):Cuenta[]{
   console.log("cuenta "+numeroCuenta+" borrada");
+  console.log(numeroCuenta)
   return this.cuentas.filter(c=>c.numero_cuenta!=numeroCuenta);
 }
 
