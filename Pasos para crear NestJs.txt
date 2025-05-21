@@ -1,0 +1,44 @@
+Crear servicios REST con NETJS
+---
+
+1.- CONFIGURAR EL ENTORNO (SOLAMENTE UNA VEZ)
+    - Instalar Nest:
+    nos vamos al CMD y usamos el "npm install -g @nestjs/cli"
+
+    - Plugin de Visual Studio:
+    Nest File Generator desde las extensiones de VisualStudioCode
+
+2.- CREACIÓN DEL PROYECTO (cada vez que se crea un servicio)
+    - nest new NOMBRE_PROYECTO
+        crea todo los archivos necesarios para una app
+    
+    - (OPCIONAL pero...) ELIMINAR APP.SERVICE y APP.CONTROLLER
+        app controller y services que se crean por defecto.
+        Así creamos los nuestros propios.
+    
+    - Desactivar linea prettier (linea 13) habitualmente en eslint
+        y cambiar a false el estrictNullcheck linea 15 del tsconfig
+    
+
+    
+3.- CREAMOS NUESTROS ARCHIVOS
+    - MODELO DE DATOS
+        Creamos los modelos de datos. new file nombre.ts
+    
+    -CREAR FICHEROS PROPIOS
+        Sobre el scr abrimos menu contextual, elegimos NESTJS File Generate y elegimos el tipo que queramos;
+            - generate service (nos pide nombre carpeta primero y luego nos pide nombre)
+                borrar contenido del archivo para poner el nuestro.
+            - generate controller (nos pide nombre carpeta primero y luego nos pide nombre)
+    
+    -IMPORTAR ESTOS ARCHIVOS EN EL APP.MODULE
+        Nos vamos al app.module e importamos en el module cada uno:
+            controllers: [] --> controllers: [nombreController]
+            providers: [] --> providers: [nombreService]
+
+    -INICIAMOS EL PROYECTO
+        Nos vamos a la carpeta y ponemos
+            npm run start:dev
+
+///// NO CERRAMOS EL TERMINAL QUE ACABAMOS DE EJECUTAR PORQUE CERRARIA EL SERVIDOR /////
+        
