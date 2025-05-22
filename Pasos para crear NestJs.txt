@@ -41,4 +41,36 @@ Crear servicios REST con NETJS
             npm run start:dev
 
 ///// NO CERRAMOS EL TERMINAL QUE ACABAMOS DE EJECUTAR PORQUE CERRARIA EL SERVIDOR /////
+
+EN EL NEST
+SRC
+|
+|
+L   EN EL MODEL
+    una clase por cada tabla que necesitamos
+
+    EN EL SERVICE
+    un service para cada tabla o cada modelos
+
+    EN EL CONTROLLER
+    una clase por cada funcionalidad
+    pero en el caso de tiendas o tal... podría ser que se tuviera varios modelos
+    get(/usuarios)
+    get(/articulos)
+    ...
+
+EN EL FRONT
+APP
+|
+|
+L   EN COMPONENTES
+    crear una carpeta por cada componente (pagina)
+    que tenga esas cosas
+|
+L   EN EL SERVICE
+
+
+|
+L   EN EL CONTROLLER
+
         
