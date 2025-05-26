@@ -31,13 +31,22 @@ findAll():Promise<Contacto[]>{
 
 //Delete devuelve cuantas cosas han sido afectadas. Así que aprovechamos eso
 // 
-async deleteByEmail(email:string):Promise<boolean>{
-  const result:DeleteResult= await this.contactosRepository.delete({email:email})
+async deleteByEmail(e:string):Promise<boolean>{
+  const result:DeleteResult= await this.contactosRepository.delete({email:e})
   return result.affected>0; // Esto mira si el result affected es mayor que 0. Si es así, devuelve true
   
   // Con el delete le dices que elimine en base a una CONDICION
 
   // Con el remove lo que haces es darle UN OBJETO CONCRETO para borrar. Pero tienes que darselo tú
+
+}
+
+updatEmail(antiguoEmail:string,nuevoEmail:string):void{
+  this.contactosRepository.update(
+    {email:antiguoEmail},
+    {email:nuevoEmail}
+    )
+// PREGUNTAR A ANTONIO
 
 }
 
