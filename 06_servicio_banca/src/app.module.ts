@@ -4,6 +4,8 @@ import { MovimientosService } from './service/movimientos.service';
 import { MovimientosController } from './controller/movimientos.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cuenta } from './models/cuenta';
+import { CuentasService } from './service/cuentas.service';
+import { CuentasController } from './controller/cuentas.controller';
 
 @Module({
   imports: [TypeOrmModule.forRoot({ 
@@ -17,7 +19,7 @@ entities: [Movimiento, Cuenta],
 synchronize: false, 
 }),
 TypeOrmModule.forFeature([Movimiento, Cuenta])],
-  controllers: [MovimientosController],
-  providers: [MovimientosService],
+  controllers: [MovimientosController, CuentasController],
+  providers: [MovimientosService, CuentasService],
 })
 export class AppModule {}

@@ -1,4 +1,3 @@
-import { Cuenta } from 'src/model/cuenta';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cuenta } from 'src/models/cuenta';
@@ -7,7 +6,8 @@ import { Between, LessThan, MoreThan, Repository } from 'typeorm';
 
 @Injectable()
 export class MovimientosService {
-  constructor(@InjectRepository(Movimiento) private movimientosRepository:Repository<Movimiento>,@InjectRepository(Cuenta) private cuentasRepository:Repository<Cuenta>){
+  constructor(@InjectRepository(Movimiento) private movimientosRepository:Repository<Movimiento>,
+  @InjectRepository(Cuenta) private cuentasRepository:Repository<Cuenta>){
   }
 
 resultadoFechas:Movimiento[]=[];
@@ -31,53 +31,29 @@ return resultado;
 
 }
 
-
-// async findsByFechas(fechaInicial:Date,fechaFinal:Date):Promise<Movimiento[]>{
-// const resultado =  await this.movimientosRepository.findBy({
-// fecha: Between(fechaInicial,fechaFinal)})
-// return this.resultadoFechas=resultado
-
-// }
-
-
-async findsByFechas(fechaInicial:Date):Promise<Cuenta[]>{
+async findsByFechas(fechaInicial:Date,fechaFinal:Date):Promise<Movimiento[]>{
 const resultado =  await this.movimientosRepository.findBy({
-fecha:fechaInicial}
-where )
+fecha: Between(fechaInicial,fechaFinal)})
 return this.resultadoFechas=resultado
 
 }
 
 
+async findByCuentaSaldoMin(saldo:number):Promise<Cuenta[]>{
 
-async findMovimientosByCuenta(numCuenta:number,fechaInicial:Date,fechaFinal:Date):Promise<Cuenta[]>{
-
-  const filtroFechas = await this.findsByFechas(fechaInicial,fechaFinal);
-
-   filtroFechas.map(m=>m.numCuenta) // mirar para ver qué pasa
-
-}
-
-
-async findMovimientosByFecha(fechaBuscar:Date):Promise<Cuenta[]>{
-
-  this.resultadoCuentas = await this.movimientosRepository.find({ //Traigo la cuenta de MOVIMIENTOS
-    where: {
-      fecha:fechaBuscar // Le digo que, de la cuenta de MOVIMIENTOS que he traido me busque UNA FECHA.
-                        // Ahora tengo, todos los movimientos de una fecha.
-    },
-    relations: ["cuentas"]  // Ahora le digo que esto está relacionado con cuentas.
-                            // En Cuentas, 
-  })
-
-  return this.resultadoCuentas.map(m=>m.Cuenta) //
-} 
-
-  
-
+const resultado = await this.movimientosRepository.find({
+  where: {
+    cuenta: {
+      saldo: MoreThan(saldo)
+    }
+  },
+  relations: ["cuenta"] //le ponemos EL CAMPO de la relación de la entidad que estás pidiendo
+})
 }
 
 
 
 }
+
+
 

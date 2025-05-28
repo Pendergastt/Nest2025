@@ -31,7 +31,20 @@ export class MovimientosController {
   altaMovimiento(@Body()movimiento:Movimiento):void{
     this.movimientosService.saveMovimiento(movimiento)
 
+  }
+
+  @Get("movscuenta/:IdCuenta")
+  buscarPorCuenta(@Param(idCuenta)idCuenta:number){
+    this.movimientosService.
+
 
   }
+
+  @Get("porSaldoMin/:saldoMin")
+  buscarPorSaldoSuperior(saldoMin:number){
+    this.movimientosService.findByCuentaSaldoMin(saldoMin);
+  }
+
+
 
 }

@@ -16,7 +16,7 @@ export class Movimiento{
 
     @ManyToOne(()=>Cuenta, cuenta=>cuenta.movimientos) //VARIOS MOVIMIENTOS relacionados con UNA CUENTA
     @JoinColumn({name:"idCuenta",referencedColumnName:"numeroCuenta"}) //Aquí le digo cómo están relacionadas explicitamente
-    cuenta:Cuenta;
+    cuenta:Cuenta; //crear una PROPIEDAD CUENTA a la que traes 
 
     //En movimientos, MANY MOVIMIENTOS se relacionan con ONE cuenta
     // ¿Cómo? Pues la columna de UNION ES idCuenta(DE ESTA TABLA) con numeroCuenta (DE LA TABLA CUENTAS)

@@ -3,40 +3,32 @@ import {
   Controller,
   Delete,
   Get,
+  HttpServer,
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
-import { CreateCuentasDto } from './dto/create-cuentas.dto';
-import { UpdateCuentasDto } from './dto/update-cuentas.dto';
-import { CuentasService } from './cuentas.service';
+import { Cuenta } from 'src/models/cuenta';
+import { CuentasService } from 'src/service/cuentas.service';
 
-@Controller('cuentass')
+@Controller('cuentas')
 export class CuentasController {
   constructor(private readonly cuentasService: CuentasService) {}
 
-  @Post()
-  create(@Body() createCuentasDto: CreateCuentasDto) {
-    return this.cuentasService.create(createCuentasDto);
+  
+  
+  @Get("/movimientos/:fecha") // lo ponemos así por lo de query
+  findCuentasPorFecha(@Param("fecha") fecha:Date):Promise<Cuenta[]>{
+    return this.cuentasService.findMovimientosByFecha(fecha);
+
+  }
+  @Get("saldoSuperior/:cantidad")
+  buscarPorCantidad(@Param("cantidad") cantidad:number){
+    return this.cuentasService.findByExtractosSuperiores(cantidad);
   }
 
-  @Get()
-  findAll() {
-    return this.cuentasService.findAll();
-  }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.cuentasService.findOne(+id);
-  }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCuentasDto: UpdateCuentasDto) {
-    return this.cuentasService.update(+id, updateCuentasDto);
-  }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.cuentasService.remove(+id);
-  }
 }
