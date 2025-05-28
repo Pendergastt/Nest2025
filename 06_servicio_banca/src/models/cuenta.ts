@@ -10,11 +10,11 @@ export class Cuenta{
     saldo:number;
     @Column()
     tipoCuenta:string;
-    @OneToMany(()=>Movimiento, movimiento=>movimiento.cuenta) 
-    // esto es opcional a poner en el contructor. simplemente vale para definir la relacion. Aunque no existan columnas.
-    // Lo ponemos para poder relacionar el una CUENTA con varios MOVIMIENTOS.
-    // En la otra pondremos MANY TO ONE siendo varios movimientos CON UNA CUENTA
+    @OneToMany(()=>Movimiento, movimiento=>movimiento.cuenta)
     movimientos:Movimiento[];
+    // De esta manera relacionsmos la tabla MOVIMIENTO con CUENTA.
+    // One Cuenta to Many movimientos.
+    // le decimos que la cuenta va a tener una relación mediante CUENTA movimiento.cuenta
 
     constructor(numeroCuenta?:number,saldo?:number,tipoCuenta?:string){
 

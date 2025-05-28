@@ -7,7 +7,7 @@ export class Movimiento{
     idMovimiento:number;
     //@Column()
     //idCuenta:number;  NO HACE FALTA ESTO PORQUE NO LO VAMOS A USAR: AHORA EXPLICAMOS
-    @Column({type:"datetime"})
+    @Column({type:"date"})
     fecha:Date;
     @Column()
     cantidad:number;
@@ -16,8 +16,10 @@ export class Movimiento{
 
     @ManyToOne(()=>Cuenta, cuenta=>cuenta.movimientos) //VARIOS MOVIMIENTOS relacionados con UNA CUENTA
     @JoinColumn({name:"idCuenta",referencedColumnName:"numeroCuenta"}) //Aquí le digo cómo están relacionadas explicitamente
-    //
     cuenta:Cuenta;
+
+    //En movimientos, MANY MOVIMIENTOS se relacionan con ONE cuenta
+    // ¿Cómo? Pues la columna de UNION ES idCuenta(DE ESTA TABLA) con numeroCuenta (DE LA TABLA CUENTAS)
 
     constructor(idMovimiento:number,cuenta:Cuenta,fecha:Date,cantidad:number,operacion:string){
 
