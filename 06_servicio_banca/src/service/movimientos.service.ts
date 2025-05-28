@@ -17,7 +17,11 @@ this.movimientosRepository.save(movimiento);
 
 findByCodigo(cuenta:number):Promise<Movimiento[]>{
 
-const resultado = this.movimientosRepository.findBy({idCuenta:cuenta})
+const resultado = this.movimientosRepository.find({
+  where: {
+    cuenta:{numeroCuenta:cuenta} // mirar y explicar
+    }
+  })
 return resultado;
 
 }
