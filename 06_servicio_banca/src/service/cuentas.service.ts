@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { MoreThan, Repository } from 'typeorm';
+import { In, MoreThan, Repository } from 'typeorm';
 import { Cuenta } from 'src/models/cuenta';
 import { Movimiento } from 'src/models/movimiento';
 import { Cliente } from 'src/models/cliente';
@@ -67,7 +67,27 @@ async findByDni(dni:number):Promise<Cuenta[]>{
 
 }
 
+async altaCuenta(cuenta:Cuenta, titulares:number[]){
+// recibe un oobjeto cuenta y un array con los DNI de los titulares
+// que debe tener esa cuenta. El metodo dará de alta la cuenta
+// y asignará esos titulares.
 
+// Como queremos asignar una nueva cuenta a clientes QUE YA EXISTEN en nuestra tabla
+// lo primero que tenemos que hacer es buscar los clientes que tenemos en nuestro array en nuestros clientes (la tabla que ya tenemos)
+// Así que vamos a hacer un findBy dni dentro de titulares. Esto coge CADA DATO DEL ARRAY TITULARES (en este caso DNI) y los busca.
+// Cuando lo encuentra, lo mete en el array. Al final de esta primera lína tendremos el array de clientes
+const resultado:Cliente[] = await this.clientesRepository.findBy({dni:In(titulares)});
+
+// Ya tenemos el array de clientes en la variable resultado. Ahora. Las cuentas tienen una propiedad que es CUENTA.CLIENTES.
+// Copiamos ese array de clientes resultante en la propiedad cuenta.clientes.
+// Así que ahora ya tenemos un OBJETO CUENTA (para dar de alta) cuya propiedad CUENTAS.CLIENTES es el ya el array de los DNI que hemos buscado
+// solamente tenemos que decirle que lo oguarde.
+
+cuenta.clientes=resultado
+this.cuentasRepository.save(cuenta);
+
+
+}
 
 
 

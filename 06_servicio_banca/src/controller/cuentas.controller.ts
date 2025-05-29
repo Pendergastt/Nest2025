@@ -50,11 +50,16 @@ export class CuentasController {
     }else{
       response.status(418).json([])
     }
-
-
     }
 
+    @Post("alta")
+altaCuentas(@Body() datos:any){
 
+  const cuenta:Cuenta=datos.cuenta;
+  const dnis:number[]=datos.dni;
+  this.cuentasService.altaCuenta(cuenta,dnis)
+
+}
 
 
 
