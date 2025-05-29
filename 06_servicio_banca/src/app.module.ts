@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cuenta } from './models/cuenta';
 import { CuentasService } from './service/cuentas.service';
 import { CuentasController } from './controller/cuentas.controller';
+import { Cliente } from './models/cliente';
 
 @Module({
   imports: [TypeOrmModule.forRoot({ 
@@ -15,10 +16,10 @@ port: 3306,
 username: 'nestuser', 
 password: 'nestpass', 
 database: 'bancabd', 
-entities: [Movimiento, Cuenta], 
+entities: [Movimiento, Cuenta, Cliente], 
 synchronize: false, 
 }),
-TypeOrmModule.forFeature([Movimiento, Cuenta])],
+TypeOrmModule.forFeature([Movimiento, Cuenta, Cliente])],
   controllers: [MovimientosController, CuentasController],
   providers: [MovimientosService, CuentasService],
 })

@@ -28,15 +28,14 @@ export class MovimientosController {
   }
   
   @Post("alta")
-  altaMovimiento(@Body()movimiento:Movimiento):void{
+  altaMovimiento(@Body() movimiento:Movimiento):void{
     this.movimientosService.saveMovimiento(movimiento)
 
   }
 
   @Get("movscuenta/:IdCuenta")
-  buscarPorCuenta(@Param(idCuenta)idCuenta:number){
-    this.movimientosService.
-
+  buscarPorCuenta(@Param("idCuenta") idCuenta:number){
+    this.movimientosService.findByCodigo(idCuenta)
 
   }
 

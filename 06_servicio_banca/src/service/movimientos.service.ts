@@ -41,15 +41,16 @@ return this.resultadoFechas=resultado
 
 async findByCuentaSaldoMin(saldo:number):Promise<Cuenta[]>{
 
-const resultado = await this.movimientosRepository.find({
-  where: {
-    cuenta: {
-      saldo: MoreThan(saldo)
-    }
-  },
-  relations: ["cuenta"] //le ponemos EL CAMPO de la relación de la entidad que estás pidiendo
-})
-}
+  const resultado= await this.movimientosRepository.find({
+    where: {
+      cuenta: {
+        saldo: MoreThan(saldo)
+      }
+    },
+    relations: ["cuenta"] //le ponemos EL CAMPO de la relación de la entidad que estás pidiendo
+  })
+  return resultado.map(m=>m.cuenta)
+  }
 
 
 
