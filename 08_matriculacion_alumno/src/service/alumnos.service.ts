@@ -13,10 +13,11 @@ export class AlumnosService {
 
     async buscarAlumno(curso:number):Promise<Alumno[]>{
 
-        return await this.alumnoRepository.createQueryBuilder("alumno")
-        .innerJoin("alumno.cursos","c")
-        .where("alumno.curso!=:curso",{curso:curso})
-        .distinct(true)
+        const alumnos = this.alumnoRepository.createQueryBuilder("alumno")
+        .innerJoin("alumno.cursos","c") // BUSCAR UNA LISTA DE ALUMNOS QUE ESTE EN EL CURSO.
+        // DESPUES BUSCAR LOS QUE NO ESTÁN EN LA LISTA
+        .where("c=:curso",{curso:curso})// Esto busca los que estan, giuardarlos en una constante
+        // después intentar hacer un pipe o un map de esos alumnos
         .getMany()
 
     }
