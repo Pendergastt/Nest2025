@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { In, MoreThan, Repository } from 'typeorm';
+import { DataSource, In, MoreThan, Repository } from 'typeorm';
 import { Cuenta } from 'src/models/cuenta';
 import { Movimiento } from 'src/models/movimiento';
 import { Cliente } from 'src/models/cliente';
@@ -11,7 +11,9 @@ constructor(
 
 @InjectRepository(Cuenta) private cuentasRepository:Repository<Cuenta>,
 @InjectRepository(Cuenta) private movimientosRepository:Repository<Movimiento>,
-@InjectRepository(Cliente) private clientesRepository:Repository<Cliente>)
+@InjectRepository(Cliente) private clientesRepository:Repository<Cliente>,
+private dataSource:DataSource
+)
 
 {}
 
@@ -96,6 +98,11 @@ this.cuentasRepository.save(cuenta);
 
 }
 
+
+saldoMedio():Promise<any>{
+  return this.dataSource.query("Select avg(saldo) from cuentas");
+
+}
 
 
 }

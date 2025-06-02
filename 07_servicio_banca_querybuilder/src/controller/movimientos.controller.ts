@@ -23,7 +23,7 @@ export class MovimientosController {
   }
   @Get("fecha")
    consultarFecha(@Query("fechaInicial")fechaInicial:Date,@Query("fechaFinal")fechaFinal:Date):Promise<Movimiento[]>{
-    return this.movimientosService.findsByFechas(fechaInicial,fechaFinal)
+    return this.movimientosService.findByFechas(fechaInicial,fechaFinal)
 
   }
   

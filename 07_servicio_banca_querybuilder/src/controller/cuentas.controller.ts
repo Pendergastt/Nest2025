@@ -60,8 +60,10 @@ altaCuentas(@Body() datos:any){
   this.cuentasService.altaCuenta(cuenta,dnis)
 
 }
-
-
+  @Get("saldoMedio")
+  saldoMedio(){
+    return this.cuentasService.saldoMedio();
+  }
 
   }
 
