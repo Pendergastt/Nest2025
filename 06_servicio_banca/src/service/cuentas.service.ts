@@ -10,7 +10,7 @@ export class CuentasService {
 constructor(
 
 @InjectRepository(Cuenta) private cuentasRepository:Repository<Cuenta>,
-@InjectRepository(Cuenta) private movimientosRepository:Repository<Movimiento>,
+@InjectRepository(Movimiento) private movimientosRepository:Repository<Movimiento>,
 @InjectRepository(Cliente) private clientesRepository:Repository<Cliente>)
 
 {}
@@ -20,9 +20,9 @@ constructor(
 // cuentas que hayan tenido movimientos en fechas
 
 async findMovimientosByFecha(fechaBuscar:Date):Promise<Cuenta[]>{
-
-  const resultado = await this.movimientosRepository.find({ //Traigo la cuenta de MOVIMIENTOS
+  const resultado = await this.movimientosRepository.find({ //Traigo la tabla de MOVIMIENTOS
     where: {
+      
       fecha:fechaBuscar // Le digo que, de la cuenta de MOVIMIENTOS que he traido me busque UNA FECHA.
                         // Ahora tengo, todos los movimientos de una fecha.
     },
@@ -30,7 +30,7 @@ async findMovimientosByFecha(fechaBuscar:Date):Promise<Cuenta[]>{
                             // En Cuentas, va a mirar las fehcas que sean iguales
   })
 
-  return [...new Set(resultado.map(m=>m.cuenta))] //
+  return resultado.map(m=>m.cuenta) 
 } 
 
 async findByExtractosSuperiores(importeSacado:number):Promise<Cuenta[]>{
@@ -38,7 +38,8 @@ async findByExtractosSuperiores(importeSacado:number):Promise<Cuenta[]>{
   const resultado = await this.movimientosRepository.find({
 
     where: {
-      cantidad: MoreThan(importeSacado) //traigo los movimientos more than lo que ponga
+      cantidad: MoreThan(importeSacado),
+      operacion:"extracción" //traigo los movimientos more than lo que ponga
     },
     relations:["cuentas"] // BUSCO ESO MISMO EN CUENTAS
 
@@ -67,7 +68,7 @@ async findByDni(dni:number):Promise<Cuenta[]>{
 
 }
 
-async altaCuenta(cuenta:Cuenta, titulares:number[]){
+async altaCuenta(cuenta:Cuenta, titulares:number[]){ // 
 // recibe un oobjeto cuenta y un array con los DNI de los titulares
 // que debe tener esa cuenta. El metodo dará de alta la cuenta
 // y asignará esos titulares.
