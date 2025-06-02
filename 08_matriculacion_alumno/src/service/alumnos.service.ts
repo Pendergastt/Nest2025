@@ -19,7 +19,7 @@ export class AlumnosService {
         .where("c=:curso",{curso:curso})// Esto busca los que estan, giuardarlos en una constante
         // después intentar hacer un pipe o un map de esos alumnos
         .getMany()
-
+        // DESCARGAR BASE DE DATOS DEL REPOSITORIO DE ANTONIO
     }
 
     matricularAlumno(nuevoAlumno:Alumno){
