@@ -18,6 +18,7 @@ saveMovimiento(movimiento:Movimiento):void{
 this.movimientosRepository.save(movimiento);
 
 }
+/*
 
 findByCodigo(cuenta:number):Promise<Movimiento[]>{
 
@@ -28,15 +29,34 @@ const resultado = this.movimientosRepository.find({
     relations:["movimientos"]
   })
 return resultado;
+}
+
+*/
+
+findByCodigo(cuenta:number):Promise<Movimiento[]>{
+
+return this.movimientosRepository.createQueryBuilder("movimiento")
+.where("movimiento.cuenta.numeroCuenta=:numCuenta",{numCuenta:cuenta})
+.getMany()
 
 }
 
+
+/*
 async findsByFechas(fechaInicial:Date,fechaFinal:Date):Promise<Movimiento[]>{
 const resultado =  await this.movimientosRepository.findBy({
 fecha: Between(fechaInicial,fechaFinal)})
 return this.resultadoFechas=resultado
 
 }
+*/
+
+findByFechas(fechaInicial:Date,fechaFinal:Date):Promise<Movimiento[]>{
+  return this.movimientosRepository.createQueryBuilder("movimiento")
+    .where("movimiento.fecha between :f1 and :f2",{f1:fechaInicial,f2:fechaFinal})
+    .getMany();
+  }
+
 
 
 async findByCuentaSaldoMin(saldo:number):Promise<Cuenta[]>{

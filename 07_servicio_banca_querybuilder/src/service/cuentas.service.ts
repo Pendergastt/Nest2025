@@ -18,7 +18,7 @@ constructor(
 // Inyectamos el repositorio pero le decimos de qué cuenta y qué tipo
 
 // cuentas que hayan tenido movimientos en fechas
-
+/*
 async findMovimientosByFecha(fechaBuscar:Date):Promise<Cuenta[]>{
 
   const resultado = await this.movimientosRepository.find({ //Traigo la cuenta de MOVIMIENTOS
@@ -33,12 +33,23 @@ async findMovimientosByFecha(fechaBuscar:Date):Promise<Cuenta[]>{
   return [...new Set(resultado.map(m=>m.cuenta))] //
 } 
 
-  
+*/
+
+async findMovimientosByFecha(fechaBuscar:Date):Promise<Cuenta[]>{
+
+  return await this.cuentasRepository.createQueryBuilder("cuenta")
+  .innerJoin("cuenta.movimientos","mov")
+  .where("mov.fecha=:fecha",{fecha:fechaBuscar})
+  .distinct(true)
+  .getMany()
+
+}
+
 async findByExtractosSuperiores(importeSacado:number):Promise<Cuenta[]>{
 
   return await this.cuentasRepository.createQueryBuilder("cuenta")
   .innerJoin("cuenta.movimientos","m")
-  .where("m.cantidad>:cant",{cant:importeSacado})
+  .where("m.cantidad>=:cant",{cant:importeSacado})
   // donde m.cantidad sea mayor que una variable "cant" y esta variable "cant" sea el importeSacado (por eso le ponemos el json)
   .getMany()
 
