@@ -11,12 +11,12 @@ export class AlumnosService {
     {}
 
 
-    async buscarAlumno(curso:number):Promise<Alumno[]>{
+    async buscarAlumno(codigoCurso:number):Promise<Alumno[]>{
 
-        let usuariosEnCurso = (await this.alumnoRepository.createQueryBuilder("alumno")
+        const usuariosEnCurso:string[] = (await this.alumnoRepository.createQueryBuilder("alumno")
         .innerJoin("alumno.cursos","c") // BUSCAR UNA LISTA DE ALUMNOS QUE ESTE EN EL CURSO.
-        // DESPUES BUSCAR LOS QUE NO ESTÁN EN LA LISTA
-        .where("c=:curso",{curso:curso})// Esto busca los que estan, giuardarlos en una constante
+        // DESPUES BUSCAR LOS QUE NO ESTÁN EN LA LISTA-- "C" ES CADA ELEMENTO DE ESE JOIN
+        .where("c.idCurso=:curso",{curso:codigoCurso})// Esto busca los que estan, giuardarlos en una constante
         // después intentar hacer un pipe o un map de esos alumnos
         .getMany())
         // DESCARGAR BASE DE DATOS DEL REPOSITORIO DE ANTONIO
@@ -27,7 +27,7 @@ export class AlumnosService {
         const alumnos = await this.alumnoRepository.createQueryBuilder("alumno")
         // qué hemos hecho? hemos buscado con el querybuilder la lista de alumnos
         // y le hemos dado la condicion WHERE que ALUMNOS.USUARIO NO ESTÁ EN LA variable LISTA donde LISTA ES usuarioEnCurso que son los que ESTABAN EN EL CURSO
-        .where("alumno.usuario not in (:(...lista))",{lista:usuariosEnCurso}) // los tres puntos los ponemos para, DEL OBJETO LISTA, hacer un array. Los ... era copiar los datos de un objeto en un array
+        .where("alumno.usuario not in (:...lista)",{lista:usuariosEnCurso}) // los tres puntos los ponemos para, DEL OBJETO LISTA, hacer un array. Los ... era copiar los datos de un objeto en un array
         .getMany();
 
         return alumnos

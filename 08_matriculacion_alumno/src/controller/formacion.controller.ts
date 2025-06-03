@@ -25,7 +25,7 @@ export class FormacionController {
     async matricularAlumno(@Body() datos:any, @Res() response:Response){
       const resultado:boolean= await this.matriculasService.matricular(datos.usuario,datos.curso);
       if(resultado){
-        response.status(200).send();
+       response.status(200).send();
       }else {
         response.status(409).send();
       }
@@ -33,13 +33,13 @@ export class FormacionController {
 
     @Get("alumnos/:curso")
     buscarAlumnos(@Param("curso") curso:number){
-      this.alumnosService.buscarAlumno(curso)
+      return this.alumnosService.buscarAlumno(curso)
         
     }
 
     @Get("cursos")
     buscarCurso(){
-      this.cursosService.buscarCurso();
+      return this.cursosService.buscarCurso();
 
 
     }
