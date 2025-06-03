@@ -24,7 +24,7 @@ export class FormacionController {
 
     @Post("matricular")
     async matricularAlumno(@Body() datos:MatriculaNuevaDto, @Res() response:Response){
-      const resultado:boolean= await this.matriculasService.matricular(datos.usuario,datos.curso);
+      const resultado:boolean= await this.matriculasService.matricular(datos);
       if(resultado){
        response.status(200).send();
       }else {
