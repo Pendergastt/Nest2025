@@ -1,3 +1,4 @@
+import { MatriculaNuevaDto } from './../dtos/MatriculaNuevaDto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { Curso } from 'src/model/Curso';
@@ -11,7 +12,7 @@ export class MatriculasService {
         @InjectRepository(Alumno) private alumnoRepository:Repository<Alumno>
     ){}
 
-async matricular(usuario:string,idCurso:number):Promise<boolean>{
+async matricular(matricula:MatriculaNuevaDto):Promise<boolean>{
         
         const alumno:Alumno = await this.alumnoRepository.createQueryBuilder("alumno") //encuentra el alumno por usuario que quieres matricular
         .innerJoinAndSelect("curso.alumnos","a") //esto trae también los alumnos que pertenecen al curso

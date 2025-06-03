@@ -12,6 +12,7 @@ import { AlumnosService } from 'src/service/alumnos.service';
 import { CursosService } from 'src/service/cursos.service';
 import { MatriculasService } from 'src/service/matriculas.service';
 import { Response } from 'express';
+import { MatriculaNuevaDto } from 'src/dtos/MatriculaNuevaDto';
 
 @Controller('formacion')
 export class FormacionController {
@@ -22,7 +23,7 @@ export class FormacionController {
     ){}
 
     @Post("matricular")
-    async matricularAlumno(@Body() datos:any, @Res() response:Response){
+    async matricularAlumno(@Body() datos:MatriculaNuevaDto, @Res() response:Response){
       const resultado:boolean= await this.matriculasService.matricular(datos.usuario,datos.curso);
       if(resultado){
        response.status(200).send();
