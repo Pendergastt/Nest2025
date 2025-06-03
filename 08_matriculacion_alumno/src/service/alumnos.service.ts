@@ -27,7 +27,7 @@ export class AlumnosService {
         const alumnos = await this.alumnoRepository.createQueryBuilder("alumno")
         // qué hemos hecho? hemos buscado con el querybuilder la lista de alumnos
         // y le hemos dado la condicion WHERE que ALUMNOS.USUARIO NO ESTÁ EN LA variable LISTA donde LISTA ES usuarioEnCurso que son los que ESTABAN EN EL CURSO
-        .where("alumno.usuario not in :lista",{lista:usuariosEnCurso})
+        .where("alumno.usuario not in (:(...lista))",{lista:usuariosEnCurso}) // los tres puntos los ponemos para, DEL OBJETO LISTA, hacer un array. Los ... era copiar los datos de un objeto en un array
         .getMany();
 
         return alumnos

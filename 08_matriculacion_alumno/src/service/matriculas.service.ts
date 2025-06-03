@@ -14,6 +14,7 @@ export class MatriculasService {
 async matricular(usuario:string,idCurso:number):Promise<boolean>{
         
         const alumno:Alumno = await this.alumnoRepository.createQueryBuilder("alumno") //encuentra el alumno por usuario que quieres matricular
+        .innerJoinAndSelect("curso.alumnos","a") //esto trae también los alumnos que pertenecen al curso
         .where("alumno.usuario=:usuarioMatricular",{usuarioMatricular:usuario})
         .getOne();
 
