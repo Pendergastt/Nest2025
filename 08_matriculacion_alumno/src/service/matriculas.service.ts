@@ -1,0 +1,36 @@
+import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
+import { Curso } from 'src/model/Curso';
+import { Repository } from 'typeorm';
+import { Alumno } from 'src/model/Alumno';
+
+@Injectable()
+export class MatriculasService {
+    constructor(
+        @InjectRepository(Curso) private cursoRepository:Repository<Curso>,
+        @InjectRepository(Alumno) private alumnoRepository:Repository<Alumno>
+    ){}
+
+async matricular(usuario:string,idCurso:number):Promise<boolean>{
+        
+        const alumno:Alumno = await this.alumnoRepository.createQueryBuilder("alumno") //encuentra el alumno por usuario que quieres matricular
+        .where("alumno.usuario=:usuarioMatricular",{usuarioMatricular:usuario})
+        .getOne();
+
+        const curso:Curso = await this.cursoRepository.createQueryBuilder("curso") //encuentra el alumno por usuario que quieres matricular
+        .where("curso.idCurso=:IdCurso",{idCurso:idCurso})
+        .getOne();
+
+        if (!alumno || !curso){
+            return false
+        }
+        
+        curso.alumnos.push(alumno); // Como repository te devuelve un 
+        await this.cursoRepository.save(curso) // 
+        return true
+
+        }
+}
+
+
+
