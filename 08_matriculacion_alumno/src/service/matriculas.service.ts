@@ -16,11 +16,11 @@ async matricular(matricula:MatriculaNuevaDto):Promise<boolean>{
         
         const alumno:Alumno = await this.alumnoRepository.createQueryBuilder("alumno") //encuentra el alumno por usuario que quieres matricular
         .innerJoinAndSelect("curso.alumnos","a") //esto trae también los alumnos que pertenecen al curso
-        .where("alumno.usuario=:usuarioMatricular",{usuarioMatricular:MatriculaNuevaDto.usuario})
+        .where("alumno.usuario=:usuarioMatricular",{usuarioMatricular:matricula.usuario})
         .getOne();
 
         const curso:Curso = await this.cursoRepository.createQueryBuilder("curso") //encuentra el alumno por usuario que quieres matricular
-        .where("curso.idCurso=:IdCurso",{idCurso:MatriculaNuevaDto.idCurso})
+        .where("curso.idCurso=:IdCurso",{idCurso:matricula.idCurso})
         .getOne();
 
         if (!alumno || !curso){

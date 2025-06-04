@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AlumnoNuevoDto } from 'src/dtos/AlumnoNuevoDto';
 import { AlumnoResultadoDto } from 'src/dtos/AlumnoResultadoDto';
 import { Alumno } from 'src/model/Alumno';
 import { Repository } from 'typeorm';
@@ -52,9 +53,16 @@ export class AlumnosService {
         // y le hemos dado la condicion WHERE que ALUMNOS.USUARIO NO ESTÁ EN LA variable LISTA donde LISTA ES usuarioEnCurso que son los que ESTABAN EN EL CURSO
         .where("alumno.usuario not in (:...lista)",{lista:usuariosEnCurso}) // los tres puntos los ponemos para, DEL OBJETO LISTA, hacer un array. Los ... era copiar los datos de un objeto en un array
         .getMany())
-        .map(a=>new AlumnoResultadoDto(a.usuario,a.password,a.nombre,a.email,a.edad))
+        //.map(a=>new AlumnoResultadoDto(a.usuario,a.password,a.nombre,a.email,a.edad))
+        // Siempre que el DTO tenga las mismas PROPIEDADES que la ENTIDAD no hace falta el MAP
 
         return alumnos
+    }
+
+    save(alumno:AlumnoNuevoDto):Promise<AlumnoResultadoDto>{
+        return this.alumnoRepository.save(alumno)
+
+
     }
 
 
