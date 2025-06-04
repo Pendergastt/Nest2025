@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString, Length } from "class-validator";
+import { IsEmail, IsNotEmpty, IsNumber, IsString, Length, Max, Min } from "class-validator";
 
 export class AlumnoNuevoDto{
 
@@ -14,6 +14,8 @@ export class AlumnoNuevoDto{
     @IsEmail()
     email:string;
     @IsNumber()
+    @Min(19)
+    @Max(50)
     edad:number;
 
     constructor(usuario?:string,password?:string,nombre?:string,email?:string,edad?:number){
