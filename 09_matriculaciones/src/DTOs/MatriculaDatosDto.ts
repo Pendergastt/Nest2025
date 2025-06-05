@@ -7,10 +7,10 @@ export class MatriculaDatosDto{
 
 
         constructor(
-        nombre:string,
-        email:string,
-        curso:string,
-        nota:number,
+        nombre?:string,
+        email?:string,
+        curso?:string,
+        nota?:number,
         ){
         
         this.nombre=nombre;
