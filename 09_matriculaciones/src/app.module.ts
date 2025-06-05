@@ -22,7 +22,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           password: config.get('PASSWORD'),
           database: 'formacion',
           entities: [Curso,Alumno,Matricula],
-          synchronize: true, 
+          synchronize: false, 
         }),
       }) 
  ,
