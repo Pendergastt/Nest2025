@@ -23,10 +23,10 @@ export class Pedido{
 
     constructor(
         idPedido?:number,
-        producto?:Producto,
         unidades?:number,
         total?:number,
-        fechaPedido?:Date
+        fechaPedido?:Date,
+        producto?:Producto,
 
     )
     {
