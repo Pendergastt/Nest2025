@@ -53,7 +53,7 @@ async mostrarPedido():Promise<PedidoDatosDto[]>{
   .getMany();
   // En el return tenemos que hacer un map para crear nuestro DTO porque es lo que queremos devolver
   
-  return resultado.map(m=>new PedidoDatosDto(m.producto.producto,m.))
+  return resultado.map(m=>new PedidoDatosDto(m.producto.producto,m.unidades,m.total,m.fechaPedido))
 
 }
 
