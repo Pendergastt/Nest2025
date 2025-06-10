@@ -1,13 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
+import { PedidoDto } from 'src/dtos/PedidoDto';
 import { ProductoDto } from 'src/dtos/ProductoDto';
 
 @Injectable()
 export class ComprasService {
+  altaPedido(pedido: PedidoDto): boolean | PromiseLike<boolean> {
+    throw new Error('Method not implemented.');
+  }
   constructor(
   ){}
 
-  urlGlobal="http://localhost:3000/"
+  urlGlobal="http://localhost:3000"
 
 async mostrarPedido(precioMin:number,precioMax:number):Promise<ProductoDto[]>{
 
@@ -25,15 +29,24 @@ async mostrarPedido(precioMin:number,precioMax:number):Promise<ProductoDto[]>{
       if (p.stock>10){
         disponibilidad="alta"
       };
-      new ProductoDto(p.precio,p.precioUnitario,disponibilidad)
+      return new ProductoDto(p.producto,p.precioUnitario,disponibilidad)
     } 
+  
   )
   
   return producto;
 
 }
 
-hacerPedido(){}
-
+async hacerPedido(pedido:PedidoDto):Promise<boolean>{
+  try{
+  await axios.post(`${this.urlGlobal}/altaPedido`,pedido);
+  return true;
+  }catch(err){
+    return false;
+  }
+  }
 
 }
+
+
