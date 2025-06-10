@@ -25,7 +25,10 @@ async altaPedido(pedido:PedidoAltaDto):Promise<boolean>{
 */
 
 async altaPedido(pedido:PedidoAltaDto):Promise<boolean>{
+          console.log("Pedido en service "+pedido.producto+" "+pedido.unidades)
+
   const prod:Producto = await this.productoRepository.findOneBy({producto:pedido.producto});
+  console.log(prod.producto+" "+prod.stock)
   if(!prod || prod.stock<pedido.unidades){
     return false
   }else{
@@ -33,8 +36,9 @@ async altaPedido(pedido:PedidoAltaDto):Promise<boolean>{
     prod.stock=prod.stock-pedido.unidades
     this.productoRepository.save(prod)
     //por ultimo guardamos el pedido
-    const pedidoNuevo:Pedido = new Pedido(0,pedido.unidades,pedido.unidades*prod.precioUnitario,new Date,prod)
-    this.pedidosRepository.save(pedidoNuevo)
+    const pedidoNuevo:Pedido = new Pedido(0,pedido.unidades,pedido.unidades*prod.precioUnitario,new Date(),prod)
+    this.pedidosRepository.save(pedidoNuevo) // Con el Save se actualizaba, porque al guardar ya hace todo
+    return true
   }
 
 
