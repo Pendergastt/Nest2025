@@ -1,4 +1,3 @@
-import { Producto } from './../Modelos/Producto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { PedidoDatosDto } from 'src/DTOS/PedidoDatosDto';

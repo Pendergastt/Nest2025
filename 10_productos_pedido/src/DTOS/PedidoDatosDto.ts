@@ -5,7 +5,7 @@ import { IsDate, IsInt, IsNumber } from "class-validator";
 export class PedidoDatosDto{
 
     @IsNumber()
-    idProducto:number;
+    producto:string;
     @IsInt()
     unidades:number;
     @IsInt()
@@ -15,13 +15,13 @@ export class PedidoDatosDto{
 
     constructor(
 
-        idProducto?:number,
+        producto?:string,
         unidades?:number,
         total?:number,
         fechaPedido?:Date,
    
     ){
-        this.idProducto=idProducto;
+        this.producto=producto;
         this.unidades=unidades;
         this.total=total;
         this.fechaPedido=fechaPedido;
