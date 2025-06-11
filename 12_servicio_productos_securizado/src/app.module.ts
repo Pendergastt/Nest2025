@@ -11,6 +11,7 @@ import { Pedido } from './Modelos/Pedido';
 import { PassportModule } from '@nestjs/passport';
 import { AutenticacionController } from './controller/autenticacion.controller';
 import { JwtModule } from '@nestjs/jwt';
+import { Usuario } from './Modelos/Usuario';
 
 @Module({
   imports: [
@@ -31,11 +32,11 @@ JwtModule.register({
  signOptions: { expiresIn: '1h' },
 }),
 
-TypeOrmModule.forFeature([Pedido,Producto]),
+TypeOrmModule.forFeature([Pedido,Producto,Usuario]),
 ],
 
 controllers: [AutenticacionController,PedidosController],
-providers: [JwtStrategy, AutenticacionService, UsuariosService, PedidosService,ProductosService],
+providers: [JwtStrategy, AutenticacionService, UsuariosService, PedidosService, ProductosService],
 
 }
 

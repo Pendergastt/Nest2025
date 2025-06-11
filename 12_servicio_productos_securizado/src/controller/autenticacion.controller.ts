@@ -17,7 +17,7 @@ constructor(private autenticacionService: AutenticacionService) {}
 @Post('login')
 
 async login(@Body() data){
-  const usuario=this.autenticacionService.validateUser(data.username,data.password);
+  const usuario= await this.autenticacionService.validateUser(data.username,data.password);
   if(!usuario){
     throw new UnauthorizedException();//si no existe el usuario que tire un error
   }
