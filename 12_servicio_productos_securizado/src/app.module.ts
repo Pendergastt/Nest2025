@@ -34,7 +34,7 @@ JwtModule.register({
 TypeOrmModule.forFeature([Pedido,Producto]),
 ],
 
-controllers: [AutenticacionController],
+controllers: [AutenticacionController,PedidosController],
 providers: [JwtStrategy, AutenticacionService, UsuariosService, PedidosService,ProductosService],
 
 }

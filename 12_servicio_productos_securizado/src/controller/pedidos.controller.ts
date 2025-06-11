@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { PedidoAltaDto } from 'src/DTOS/PedidoAltaDto';
 import { PedidosService } from 'src/service/pedidos.service';
@@ -15,7 +16,10 @@ import { ProductosService } from 'src/service/productos.service';
 import { ProductoDto } from 'src/DTOS/ProductoDto';
 import { Roles } from 'src/security/roles.decorator';
 import { Admin } from 'typeorm';
+import { JwtAuthGuard } from 'src/security/jwt-auth.guard';
+import { RolesGuard } from 'src/security/roles.guard';
 
+@UseGuards(JwtAuthGuard,RolesGuard)
 @Controller('tienda')
 export class PedidosController {
   constructor(
