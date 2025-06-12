@@ -12,8 +12,8 @@ export class UsuariosService {
 async findByUsername(username: string):Promise<Usuario>{
     
     const usuario:Usuario = await this.usuarioRepository.findOneBy({username:username})
-    console.log(usuario)
     return usuario
+    
     }
 
 }

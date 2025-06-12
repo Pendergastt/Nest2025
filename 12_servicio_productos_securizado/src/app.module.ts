@@ -22,7 +22,7 @@ port: 3306,
 username: 'nestuser', 
 password: 'nestpass', 
 database: 'tiendavirtual', 
-entities: [Pedido,Producto], 
+entities: [Pedido,Producto,Usuario], 
 synchronize: false, 
 }),
 
